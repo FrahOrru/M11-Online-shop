@@ -1,11 +1,9 @@
-<div>
-    <img [src]="product.image" alt="product image">
-    <div>
-        <div>
-            <h2>{{ product.title }}</h2>
-            <h3>{{ product.description }}</h3>
-        </div>
-        <button (click)="addToCart()">add to cart</button>
+<div class="product-card">
+    <div class="image-container">
+        <img [src]="product.image" alt="product image">
     </div>
-    
+    <div class="card-description">
+        <h2>{{ product.title }}</h2>
+    </div>
+    <button (click)="addToCart()">add to cart</button>
 </div>

@@ -1,1 +1,9 @@
-<p *ngFor="let cartItem of cart">{{cartItem.title}}</p>
+<div class="product-cart">
+    <div class="image-cart-container">
+        <img [src]="product.image" alt="product image">
+    </div>
+    <div class="cart-item-description">
+        <h2>{{ product.title }}</h2>
+        <p class="delete" (click)="onDeleteFromCart()">&#x2715;</p>
+    </div>
+</div>

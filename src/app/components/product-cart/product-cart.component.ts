@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Product } from 'src/app/interfaces/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -9,14 +9,17 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductCartComponent implements OnInit {
 
-  public cart: Product[] = [];
+  @Input()
+  product!: Product;
 
   constructor(private productsService: ProductService) { }
 
   ngOnInit(): void {
-    this.productsService.cart.subscribe((cartValues: Product[]) => {
-      this.cart = cartValues;
-    })
+  }
+
+  onDeleteFromCart() {
+    console.log('yeyee')
+    this.productsService.deleteFromCart(this.product.id);
   }
 
 }
