@@ -12,13 +12,10 @@
 
   color: #fff;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  display: grid;
+  grid-template-rows: 55% 20% 10% 15%;
 }
 .image-container {
-  width: 300px;
-  height: 200px;
   overflow: hidden;
   background-color: #fff;
 }
@@ -30,6 +27,10 @@
 
 h2 {
   font-size: 16px;
+}
+h3 {
+  text-align: center;
+  margin: 0;
 }
 .card-description {
   display: flex;
@@ -56,4 +57,3 @@ button {
 
   cursor: pointer;
 }
-

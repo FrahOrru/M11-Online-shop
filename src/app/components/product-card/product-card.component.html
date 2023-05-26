@@ -5,5 +5,6 @@
     <div class="card-description">
         <h2>{{ product.title }}</h2>
     </div>
+    <h3>{{ product.price | currency:'EUR':true  }}</h3>
     <button (click)="addToCart()">add to cart</button>
 </div>

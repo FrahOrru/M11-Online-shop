@@ -28,7 +28,8 @@ export class CartTotalComponent implements OnInit, OnDestroy {
     this.total = 0;
     this.cart.forEach((item) => {
       if(item && item.product.price) {
-        this.total += item.product.price;
+        let locPrice = (item.product.price * item.quantity)
+        this.total += locPrice;
       }
     })
   }
