@@ -8,27 +8,31 @@ import { CartItem } from '../interfaces/cart.interfece';
 export class ProductService {
   private apiUrl = '../../assets/json/products.json';
 
-  public cart: Observable<CartItem[]>;
+  public cart$: Observable<CartItem[]>;
   private cartSubject = new BehaviorSubject<CartItem[]>([]);
 
   constructor(private http: HttpClient) {
-    this.cart = this.cartSubject.asObservable();
+    this.cart$ = this.cartSubject.asObservable();
   }
 
-  getData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getData(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.apiUrl);
   }
 
   addToCart(newProduct: Product) {
-    let quantity = (this.cartSubject.getValue().find((cart) => cart.product.id === newProduct.id)?.quantity ?? 0) + 1;
+    const currentCart: CartItem[] =  this.cartSubject.getValue();
+    let quantity = (currentCart.find((cart) => cart.product.id === newProduct.id)?.quantity ?? 0) + 1;
     let tmpCart: CartItem[] = [];
-    console.log(this.cartSubject.getValue().some((item) => item.product.id === newProduct.id))
-    if(!this.cartSubject.getValue().some((item) => item.product.id === newProduct.id)) {
+
+    if(!currentCart.some((item) => item.product.id === newProduct.id)) {
+
       tmpCart = [...this.cartSubject.getValue(),
         { product: newProduct,
           quantity}
       ]
+
     } else {
+
       tmpCart = this.cartSubject.getValue().map((item) => {
         if(item.product.id === newProduct.id) {
           return {
@@ -38,7 +42,9 @@ export class ProductService {
         }
           return item;
       })
+
     }
+
     this.cartSubject.next(tmpCart);
   }
 

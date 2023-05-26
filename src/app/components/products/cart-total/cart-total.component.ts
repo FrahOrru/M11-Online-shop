@@ -18,7 +18,7 @@ export class CartTotalComponent implements OnInit, OnDestroy {
   constructor(private productsService: ProductService) { }
 
   ngOnInit(): void {
-    this.subsription = this.productsService.cart.subscribe((cartValues: CartItem[]) => {
+    this.subsription = this.productsService.cart$.subscribe((cartValues: CartItem[]) => {
       this.cart = cartValues;
       this.calculateTotal();
     })

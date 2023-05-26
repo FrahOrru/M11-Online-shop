@@ -17,7 +17,6 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subsription = this.productsService.getData().subscribe(
       (response) => {
-        console.log(response)
         this.products = response;
       },
       (error) => {
