@@ -1,6 +1,6 @@
 <div class="cart-total">
     <div class="cart-items">
-        <app-product-cart *ngFor="let cartItem of cart" [product]="cartItem"></app-product-cart>
+        <app-product-cart *ngFor="let cartItem of cart" [cartItem]="cartItem"></app-product-cart>
     </div>
-    <h2>Total: {{ total }}€</h2>
+    <h2>Total: {{ total | currency:'EUR':true }}</h2>
 </div>

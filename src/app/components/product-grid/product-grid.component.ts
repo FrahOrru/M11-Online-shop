@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/interfaces/product';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -7,13 +8,14 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-grid.component.html',
   styleUrls: ['./product-grid.component.css']
 })
-export class ProductGridComponent implements OnInit {
+export class ProductGridComponent implements OnInit, OnDestroy {
   public products: Product[] = [];
+  private subsription = new Subscription;
 
   constructor(private productsService: ProductService) { }
 
   ngOnInit(): void {
-    this.productsService.getData().subscribe(
+    this.subsription = this.productsService.getData().subscribe(
       (response) => {
         console.log(response)
         this.products = response;
@@ -22,5 +24,9 @@ export class ProductGridComponent implements OnInit {
         console.error('An error occurred:', error);
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subsription.unsubscribe();
   }
 }

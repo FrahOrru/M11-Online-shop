@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/interfaces/product';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CartItem } from 'src/app/interfaces/cart.interfece';
+import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -7,15 +9,16 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './cart-total.component.html',
   styleUrls: ['./cart-total.component.css']
 })
-export class CartTotalComponent implements OnInit {
+export class CartTotalComponent implements OnInit, OnDestroy {
 
-  public cart: Product[] = [];
+  public cart: CartItem[] = [];
   public total: number = 0;
+  private subsription = new Subscription;
 
   constructor(private productsService: ProductService) { }
 
   ngOnInit(): void {
-    this.productsService.cart.subscribe((cartValues: Product[]) => {
+    this.subsription = this.productsService.cart.subscribe((cartValues: CartItem[]) => {
       this.cart = cartValues;
       this.calculateTotal();
     })
@@ -24,9 +27,13 @@ export class CartTotalComponent implements OnInit {
   calculateTotal() {
     this.total = 0;
     this.cart.forEach((item) => {
-      if(item && item.price) {
-        this.total += item.price;
+      if(item && item.product.price) {
+        this.total += item.product.price;
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subsription.unsubscribe();
   }
 }

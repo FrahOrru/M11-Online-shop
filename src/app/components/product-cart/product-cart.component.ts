@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { Product } from 'src/app/interfaces/product';
+import { CartItem } from 'src/app/interfaces/cart.interfece';
+import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductCartComponent implements OnInit {
 
   @Input()
-  product!: Product;
+  cartItem!: CartItem;
 
   constructor(private productsService: ProductService) { }
 
@@ -18,8 +19,7 @@ export class ProductCartComponent implements OnInit {
   }
 
   onDeleteFromCart() {
-    console.log('yeyee')
-    this.productsService.deleteFromCart(this.product.id);
+    this.productsService.deleteFromCart(this.cartItem.product.id);
   }
 
 }

@@ -1,9 +1,10 @@
 <div class="product-cart">
     <div class="image-cart-container">
-        <img [src]="product.image" alt="product image">
+        <img [src]="cartItem.product.image" alt="product image">
     </div>
     <div class="cart-item-description">
-        <h2>{{ product.title }}</h2>
+        <h2>{{ cartItem.product.title }}</h2>
+        <p>x{{ cartItem.quantity }}</p>
         <p class="delete" (click)="onDeleteFromCart()">&#x2715;</p>
     </div>
 </div>
