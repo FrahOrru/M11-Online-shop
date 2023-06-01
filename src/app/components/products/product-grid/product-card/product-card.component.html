@@ -3,8 +3,8 @@
         <img [src]="product.image" alt="product image">
     </div>
     <div class="card-description">
-        <h2>{{ product.title }}</h2>
+        <h2  [appHighlight]="search">{{ product.title }}</h2>
     </div>
-    <h3>{{ product.price | currency:'EUR':true  }}</h3>
+    <h3>{{ product.price | currency:'EUR':'symbol'  }}</h3>
     <button (click)="addToCart()">add to cart</button>
 </div>

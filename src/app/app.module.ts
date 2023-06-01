@@ -10,6 +10,8 @@ import { CartTotalComponent } from './components/products/cart-total/cart-total.
 import { ProductsComponent } from './components/products/products.component';
 import { ProductService } from './services/product.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { HttpClientModule } from '@angular/common/http';
     ProductGridComponent,
     ProductCartComponent,
     CartTotalComponent,
-    ProductsComponent
+    ProductsComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]

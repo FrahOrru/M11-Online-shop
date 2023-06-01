@@ -1,0 +1,17 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  color: #fff;
+}
+
+.tabs li {
+  text-decoration: none;
+  list-style: none;
+  cursor: pointer;
+}
+
+.tabs li:hover {
+  text-decoration: underline;
+}

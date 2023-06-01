@@ -1,0 +1,4 @@
+<div class="filter-container">
+    <app-tabs [tabs]="categories" (tabClick)="tabClicked($event)"></app-tabs>
+    <app-search-input (onInputStateChange)="inputStateChange($event)"></app-search-input>
+</div>

@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductCardComponent implements OnInit {
 
   @Input() product!: Product;
+  @Input() search: string = '';
   
   @Output()
   onAddToChart = new EventEmitter<Product>()

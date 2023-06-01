@@ -2,5 +2,5 @@
     <div class="cart-items">
         <app-product-cart *ngFor="let cartItem of cart" [cartItem]="cartItem"></app-product-cart>
     </div>
-    <h2>Total: {{ total | currency:'EUR':true }}</h2>
+    <h2>Total: {{ total | currency:'EUR':'symbol' }}</h2>
 </div>

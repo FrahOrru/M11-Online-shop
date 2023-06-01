@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -9,20 +9,41 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-grid.component.css']
 })
 export class ProductGridComponent implements OnInit, OnDestroy {
-  public products: Product[] = [];
+  
+  currentProducts: Product[] = [];
+  categories: string[] = ['All'];
+  search: string = '';
+
+  public loading$: Observable<boolean>;
   private subsription = new Subscription;
 
-  constructor(private productsService: ProductService) { }
+  constructor(private productsService: ProductService) {
+    this.loading$ = productsService.loading$;
+  }
 
   ngOnInit(): void {
-    this.subsription = this.productsService.getData().subscribe(
-      (response) => {
-        this.products = response;
-      },
-      (error) => {
-        console.error('An error occurred:', error);
+    this.productsService.getData();
+
+    this.subsription = this.productsService.products$.subscribe((value) => {
+      if(value) {
+        this.currentProducts = value;
+
+        value.map((product) => {
+          if(!this.categories.some((cat) => cat === product.category)) {
+            this.categories.push(product.category);
+          }
+        })
       }
-    );
+    });
+  }
+
+  searchChange(searchValue: string) {
+    this.search = searchValue;
+    // this.productsService.filterByKeyword(searchValue);
+  }
+
+  filterByCategory(selectedTab: string) {
+   this.productsService.filterByCategory(selectedTab);
   }
 
   ngOnDestroy(): void {
