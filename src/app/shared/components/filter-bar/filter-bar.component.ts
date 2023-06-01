@@ -9,6 +9,9 @@ export class FilterBarComponent implements OnInit {
 
   @Input()
   categories: string[] = [];
+  @Input()
+  activeTab: string = '';
+  
 
   @Output()
   searchChange = new EventEmitter();

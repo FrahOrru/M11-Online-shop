@@ -73,14 +73,15 @@ export class ProductService {
   }
 
   filterProducts(category?: string, keyword?: string) {
-    this.loading();
+    
+    if(keyword && keyword.length > 3 || !keyword) this.loading()
 
     if(category) {
 
       this.activeTab = category;
       this.filterByCategory();
 
-    } else if(keyword) {
+    } else if(keyword && keyword.length > 3) {
 
       this.filterByCategory()
 

@@ -1,5 +1,5 @@
 <div>
     <ul class="tabs">
-        <li *ngFor="let tab of tabs" (click)="tabClicked(tab)">{{ tab }}</li>
+        <li *ngFor="let tab of tabs" (click)="tabClicked(tab)" [class]="tab === activeTab ? 'active' : null">{{ tab }}</li>
     </ul>
 </div>

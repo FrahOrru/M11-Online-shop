@@ -10,7 +10,9 @@ export class HighlightDirective implements OnChanges {
 
   ngOnChanges() {
     if (this.searchText) {
-      this.highlightText();
+      setTimeout(() => {
+        this.highlightText();
+      }, 500)
     }
   }
 

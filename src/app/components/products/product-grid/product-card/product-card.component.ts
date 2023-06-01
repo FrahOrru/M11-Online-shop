@@ -8,7 +8,7 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
-export class ProductCardComponent implements OnInit, OnChanges {
+export class ProductCardComponent implements OnInit {
 
   @Input() product!: Product;
   @Input() search: string = '';
@@ -19,11 +19,6 @@ export class ProductCardComponent implements OnInit, OnChanges {
   constructor(private productsService: ProductService) {}
 
   ngOnInit(): void {
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.product)
   }
 
   addToCart() {

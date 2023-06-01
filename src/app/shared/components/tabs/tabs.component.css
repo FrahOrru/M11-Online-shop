@@ -12,6 +12,7 @@
   cursor: pointer;
 }
 
-.tabs li:hover {
+.tabs li:hover,
+.tabs li.active {
   text-decoration: underline;
 }

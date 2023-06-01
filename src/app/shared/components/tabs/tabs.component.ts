@@ -9,6 +9,8 @@ export class TabsComponent implements OnInit {
 
   @Input()
   tabs: string[] = [];
+  @Input()
+  activeTab: string = '';
 
   @Output()
   tabClick = new EventEmitter();
