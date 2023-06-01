@@ -6,7 +6,7 @@
 
 <ng-container *ngIf="!(loading$ | async); else loader">
     <div class="product-grid">
-        <app-product-card *ngFor="let product of currentProducts" [product]="product" [search]="search"></app-product-card>
+        <app-product-card *ngFor="let product of (products$ | async)" [product]="product" [search]="search"></app-product-card>
     </div>
 </ng-container>
 

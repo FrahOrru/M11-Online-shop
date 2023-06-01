@@ -72,27 +72,35 @@ export class ProductService {
     this.cartSubject.next(tmpCart);
   }
 
-  filterByCategory(category: string) {
-    this.activeTab = category;
+  filterProducts(category?: string, keyword?: string) {
     this.loading();
 
-    if(category === 'All') {
-      this.productsSubject.next(this.allProductsSubject.getValue());
-    } else {
-      this.productsSubject.next(this.allProductsSubject.getValue().filter((product) => product.category === category))
+    if(category) {
+
+      this.activeTab = category;
+      this.filterByCategory();
+
+    } else if(keyword) {
+
+      this.filterByCategory()
+
+      const regex: RegExp = new RegExp(keyword, "gi");
+      this.productsSubject.next(this.productsSubject.getValue().filter((product) => regex.test(product.title)));
+
+    } else if (!category && !keyword) {
+      this.filterByCategory();
     }
   }
 
-  filterByKeyword(keyword: string) {
-    const regex: RegExp = new RegExp(keyword, "gi");
-
-    this.filterByCategory(this.activeTab)
-    let tmpFilteredProducts = this.productsSubject.getValue().filter((product) => regex.test(product.title))
-
-    this.productsSubject.next(tmpFilteredProducts);
+  private filterByCategory() {
+    if(this.activeTab === 'All') {
+      this.productsSubject.next(this.allProductsSubject.getValue());
+    } else {
+      this.productsSubject.next(this.allProductsSubject.getValue().filter((product) => product.category === this.activeTab))
+    }
   }
 
-  loading() {
+  private loading() {
     this.loadingSubject.next(true);
 
     setTimeout(() => {

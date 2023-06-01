@@ -10,15 +10,16 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductGridComponent implements OnInit, OnDestroy {
   
-  currentProducts: Product[] = [];
   categories: string[] = ['All'];
   search: string = '';
 
   public loading$: Observable<boolean>;
+  public products$: Observable<Product[]>;
   private subsription = new Subscription;
 
   constructor(private productsService: ProductService) {
     this.loading$ = productsService.loading$;
+    this.products$ = productsService.products$;
   }
 
   ngOnInit(): void {
@@ -26,8 +27,6 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
     this.subsription = this.productsService.products$.subscribe((value) => {
       if(value) {
-        this.currentProducts = value;
-
         value.map((product) => {
           if(!this.categories.some((cat) => cat === product.category)) {
             this.categories.push(product.category);
@@ -39,11 +38,11 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   searchChange(searchValue: string) {
     this.search = searchValue;
-    // this.productsService.filterByKeyword(searchValue);
+    this.productsService.filterProducts(undefined, searchValue);
   }
 
   filterByCategory(selectedTab: string) {
-   this.productsService.filterByCategory(selectedTab);
+   this.productsService.filterProducts(selectedTab);
   }
 
   ngOnDestroy(): void {

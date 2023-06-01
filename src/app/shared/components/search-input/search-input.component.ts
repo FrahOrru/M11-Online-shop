@@ -18,9 +18,7 @@ export class SearchInputComponent implements OnDestroy {
 
   constructor() {
     this.subscriptions = this.input.valueChanges.subscribe((value) => {
-      if(value) {
         this.onInputStateChange.emit(value);
-      }
     })
   }
 
