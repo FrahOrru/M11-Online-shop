@@ -1,0 +1,8 @@
+<div class="pagination_section">
+    <a
+        *ngFor="let page of tmpPages; let i = index"
+        (click)="changePage(i)"
+        [class]="i === activePage ? 'active-page' : null">
+        page {{ i + 1 }}
+    </a>
+</div>

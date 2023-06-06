@@ -6,6 +6,7 @@ import { FilterBarComponent } from './components/filter-bar/filter-bar.component
 import { TabsComponent } from './components/tabs/tabs.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 
 
@@ -14,16 +15,18 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     FilterBarComponent,
     TabsComponent,
     SearchInputComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     FilterBarComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    PaginationComponent
   ]
 })
 export class SharedModule { }

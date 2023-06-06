@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Product } from 'src/app/interfaces/product.interface';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/features/services/product.service';
 
 @Component({
   selector: 'app-product-grid',
@@ -10,30 +10,32 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductGridComponent implements OnInit, OnDestroy {
   
-  categories: string[] = ['All'];
+  categories: string[] = [];
+  pages$: Observable<number> = this.productsService.pages$;
   search: string = '';
 
   public loading$: Observable<boolean>;
   public products$: Observable<Product[]>;
+  public activeTab$: Observable<string>;
+  public currentPagination$: Observable<number>;
+  
   private subsription = new Subscription;
 
   constructor(private productsService: ProductService) {
     this.loading$ = productsService.loading$;
     this.products$ = productsService.products$;
+    this.activeTab$ = productsService.activeTab$;
+    this.currentPagination$ = productsService.currentPage$;
   }
 
   ngOnInit(): void {
+    
     this.productsService.getData();
 
-    this.subsription = this.productsService.products$.subscribe((value) => {
-      if(value) {
-        value.map((product) => {
-          if(!this.categories.some((cat) => cat === product.category)) {
-            this.categories.push(product.category);
-          }
-        })
-      }
-    });
+    this.productsService.categories$.subscribe((val) => {
+      if(val.length > 1) this.categories = val;
+    })
+
   }
 
   searchChange(searchValue: string) {
@@ -43,6 +45,10 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   filterByCategory(selectedTab: string) {
    this.productsService.filterProducts(selectedTab);
+  }
+
+  changePage(index: number) {
+    this.productsService.changePage(index);
   }
 
   ngOnDestroy(): void {

@@ -1,0 +1,20 @@
+.pagination_section {
+  position: relative;
+}
+
+.pagination_section a {
+  color: #fff;
+  padding: 10px 18px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination_section a:hover:not(.active) {
+  background-color: #494b4c;
+  color: white;
+}
+
+.active-page {
+  background-color: #494b4c;
+  color: white;
+}

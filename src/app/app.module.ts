@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductCardComponent } from './components/products/product-grid/product-card/product-card.component';
 import { ProductGridComponent } from './components/products/product-grid/product-grid.component';
 import { ProductCartComponent } from './components/products/cart-total/product-cart/product-cart.component';
 import { CartTotalComponent } from './components/products/cart-total/cart-total.component';
 import { ProductsComponent } from './components/products/products.component';
-import { ProductService } from './services/product.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
-import { HighlightDirective } from './directives/highlight.directive';
+import { CommonModule } from '@angular/common';
+import { FeaturesModule } from './features/features.module';
+import { RouterModule } from '@angular/router';
+import { TermsModule } from './terms/terms.module';
 
 @NgModule({
   declarations: [
@@ -21,15 +22,17 @@ import { HighlightDirective } from './directives/highlight.directive';
     ProductCartComponent,
     CartTotalComponent,
     ProductsComponent,
-    HighlightDirective
   ],
   imports: [
+    CommonModule,
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    FeaturesModule,
+    RouterModule,
+    TermsModule,
   ],
-  providers: [ProductService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
