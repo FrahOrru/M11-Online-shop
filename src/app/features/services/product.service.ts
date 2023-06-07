@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Product } from '../../interfaces/product.interface';
 import { CartItem } from '../../interfaces/cart.interfece';
+import { APP_CONFIG_TOKEN, AppConfig } from 'src/config';
 
 @Injectable()
 export class ProductService {
-  private apiUrl = '../../assets/json/products.json';
-
   private allProductsSubject = new BehaviorSubject<Product[][]>([]);
 
   public cart$: Observable<CartItem[]>;
@@ -31,7 +30,8 @@ export class ProductService {
   public categories$: Observable<string[]>;
   public categoriesSubject = new BehaviorSubject<string[]>(['All']);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, 
+    @Inject(APP_CONFIG_TOKEN) private config: AppConfig) {
     this.cart$ = this.cartSubject.asObservable();
     this.products$ = this.productsSubject.asObservable();
     this.loading$ = this.loadingSubject.asObservable();
@@ -42,7 +42,7 @@ export class ProductService {
   }
 
   getData() {
-    this.http.get<Product[]>(this.apiUrl).subscribe((products) => {
+    this.http.get<Product[]>(this.config.dataSourceURL).subscribe((products) => {
       if(products) {
 
         this.getCategories(products);
@@ -140,11 +140,11 @@ export class ProductService {
   }
   
   divideArray(products: any[]): any[][] {
-    this.pagesSubject.next(products.length / 5);
+    this.pagesSubject.next(products.length / this.config.pageElement);
     let tmp: any[][] = [];
 
-    for (let i = 0; i < products.length; i += 5) {
-      tmp.push(products.slice(i, i + 5));
+    for (let i = 0; i < products.length; i += this.config.pageElement) {
+      tmp.push(products.slice(i, i + this.config.pageElement));
     }
   
     return tmp;

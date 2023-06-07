@@ -14,6 +14,8 @@ import { FeaturesModule } from './features/features.module';
 import { RouterModule } from '@angular/router';
 import { TermsModule } from './terms/terms.module';
 
+import { APP_CONFIG_TOKEN, APP_CONFIG } from '../config';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,10 @@ import { TermsModule } from './terms/terms.module';
     RouterModule,
     TermsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }
+  ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
