@@ -2,5 +2,8 @@
     <div class="cart-items">
         <app-product-cart *ngFor="let cartItem of cart" [cartItem]="cartItem"></app-product-cart>
     </div>
-    <h2>Total: {{ total | currency:'EUR':'symbol' }}</h2>
+    <div>
+        <h2>Total: {{ total | currency:'EUR':'symbol' }}</h2>
+        <button routerLink="checkout">{{isProductView ? 'Go to checkout' : 'Continue shopping'}}</button>
+    </div>
 </div>

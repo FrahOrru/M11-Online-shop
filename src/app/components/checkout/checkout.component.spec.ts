@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TermsOfUseComponent } from './terms-of-use.component';
+import { CheckoutComponent } from './checkout.component';
 
-describe('TermsOfUseComponent', () => {
-  let component: TermsOfUseComponent;
-  let fixture: ComponentFixture<TermsOfUseComponent>;
+describe('CheckoutComponent', () => {
+  let component: CheckoutComponent;
+  let fixture: ComponentFixture<CheckoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TermsOfUseComponent ]
+      declarations: [ CheckoutComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TermsOfUseComponent);
+    fixture = TestBed.createComponent(CheckoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

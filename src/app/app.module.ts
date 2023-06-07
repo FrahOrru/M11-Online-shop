@@ -12,9 +12,11 @@ import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FeaturesModule } from './features/features.module';
 import { RouterModule } from '@angular/router';
-import { TermsModule } from './terms/terms.module';
 
 import { APP_CONFIG_TOKEN, APP_CONFIG } from '../config';
+import { ProductRoutingModule } from './product-routing.module';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { SuccessComponent } from './components/success/success.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { APP_CONFIG_TOKEN, APP_CONFIG } from '../config';
     ProductCartComponent,
     CartTotalComponent,
     ProductsComponent,
+    CheckoutComponent,
+    SuccessComponent,
   ],
   imports: [
     CommonModule,
@@ -32,7 +36,7 @@ import { APP_CONFIG_TOKEN, APP_CONFIG } from '../config';
     SharedModule,
     FeaturesModule,
     RouterModule,
-    TermsModule,
+    ProductRoutingModule
   ],
   providers: [
     { provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }

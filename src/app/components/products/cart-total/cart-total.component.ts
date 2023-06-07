@@ -14,6 +14,7 @@ export class CartTotalComponent implements OnInit, OnDestroy {
   public cart: CartItem[] = [];
   public total: number = 0;
   private subsription = new Subscription;
+  isProductView = true;
 
   constructor(private productsService: ProductService) { }
 
