@@ -50,9 +50,10 @@ export class ProductService {
   }
 
   getData() {
-    this.languageService.lannguage$.subscribe((language) => {
+    this.languageService.language$.subscribe((language) => {
       if(language) {
-        this.http.get<Product[]>(this.config.dataSourceURL).subscribe((products) => {
+        console.log(language)
+        this.http.get<Product[]>(this.config.getDataSourceURL(language)).subscribe((products) => {
           if(products) {
     
             this.getCategories(products);
@@ -166,6 +167,10 @@ export class ProductService {
         this.countiresSubject.next(this.sortAlphabetically(countries.map(x => x.name.common)))
       }
     });
+  }
+
+  clearCart() {
+    this.cartSubject.next([]);
   }
 
   private sortAlphabetically(array: string[]): string[] {

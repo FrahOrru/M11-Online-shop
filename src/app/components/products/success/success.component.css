@@ -18,11 +18,21 @@ i {
   margin-left: -15px;
 }
 .card {
-  background: white;
   padding: 60px;
   border-radius: 4px;
-  box-shadow: 0 2px 3px #c8d0d8;
   display: inline-block;
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.circle {
+  border-radius: 200px;
+  height: 200px;
+  width: 200px;
+  background: #f8faf5;
+  margin: 0 auto;
 }

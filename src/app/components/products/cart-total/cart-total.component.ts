@@ -19,13 +19,15 @@ export class CartTotalComponent implements OnInit, OnDestroy {
   private language: any;
 
   constructor(private productsService: ProductService, private languageService: LanguageService) {
-    this.language = this.languageService.lannguage$.subscribe(x => x);
    }
 
   ngOnInit(): void {
     this.subsription = this.productsService.cart$.subscribe((cartValues: CartItem[]) => {
       this.cart = cartValues;
       this.calculateTotal();
+    })
+    this.languageService.language$.subscribe((language) => {
+      this.language = language
     })
   }
 
@@ -42,7 +44,9 @@ export class CartTotalComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subsription.unsubscribe();
   }
+  
   languageChange() {
+    console.log(this.language)
     this.languageService.setLanguage(this.language === 'en' ? 'fr' : 'en')
   }
 }
