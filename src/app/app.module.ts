@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -15,8 +15,14 @@ import { RouterModule } from '@angular/router';
 
 import { APP_CONFIG_TOKEN, APP_CONFIG } from '../config';
 import { ProductRoutingModule } from './product-routing.module';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { SuccessComponent } from './components/success/success.component';
+import { CheckoutComponent } from './components/products/checkout/checkout.component';
+import { SuccessComponent } from './components/products/success/success.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProductService } from './features/services/product.service';
+
+function initializeApp(productsData: ProductService) {
+  return () => productsData.getData();
+}
 
 @NgModule({
   declarations: [
@@ -36,10 +42,18 @@ import { SuccessComponent } from './components/success/success.component';
     SharedModule,
     FeaturesModule,
     RouterModule,
-    ProductRoutingModule
+    ProductRoutingModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [
-    { provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG }
+    { provide: APP_CONFIG_TOKEN, useValue: APP_CONFIG },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [ProductService],
+      multi: true,
+    },
   ],
   
   bootstrap: [AppComponent]

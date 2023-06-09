@@ -7,6 +7,9 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { SearchInputComponent } from './components/search-input/search-input.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { ButtonComponent } from './components/button/button.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ToggleSwitchComponent } from './components/toggle-switch/toggle-switch.component';
 
 
 
@@ -16,7 +19,10 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     TabsComponent,
     SearchInputComponent,
     LoadingSpinnerComponent,
-    PaginationComponent
+    PaginationComponent,
+    ButtonComponent,
+    NotFoundComponent,
+    ToggleSwitchComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +32,10 @@ import { PaginationComponent } from './components/pagination/pagination.componen
   exports: [
     FilterBarComponent,
     LoadingSpinnerComponent,
-    PaginationComponent
+    PaginationComponent,
+    ButtonComponent,
+    NotFoundComponent,
+    ToggleSwitchComponent
   ]
 })
 export class SharedModule { }

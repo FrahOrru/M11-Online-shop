@@ -29,9 +29,6 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
-    this.productsService.getData();
-
     this.productsService.categories$.subscribe((val) => {
       if(val.length > 1) this.categories = val;
     })

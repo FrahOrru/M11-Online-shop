@@ -1,0 +1,21 @@
+button {
+  align-self: center;
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+button:disabled {
+  background-color: rgba(228, 229, 230, 0.768);
+  border: 1px solid #000;
+  color: black;
+  cursor: not-allowed;
+}
+
+.black-theme {
+  border: 1px solid #000;
+  color: #000;
+}

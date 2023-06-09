@@ -1,9 +1,17 @@
 <div class="cart-total">
+    <div class="flex-toggle">
+        <p>EN</p>
+        <app-toggle-switch (changedirection)="languageChange()"></app-toggle-switch>
+        <p>FR</p>
+    </div>
     <div class="cart-items">
         <app-product-cart *ngFor="let cartItem of cart" [cartItem]="cartItem"></app-product-cart>
     </div>
     <div>
         <h2>Total: {{ total | currency:'EUR':'symbol' }}</h2>
-        <button routerLink="checkout">{{isProductView ? 'Go to checkout' : 'Continue shopping'}}</button>
+        <app-button
+        routerLink="checkout"
+        [text]="isProductView ? 'Go to checkout' : 'Continue shopping'"
+        [isDisabled]="isProductView && cart.length <= 0"></app-button>
     </div>
 </div>

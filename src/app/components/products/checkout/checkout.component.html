@@ -1,0 +1,79 @@
+<div class="checkout">
+    <h1>Please Enter Your Personal Data</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row">
+
+          <div class="flex-col">
+            <input type="text" id="firstName" formControlName="firstName" placeholder="First Name">
+            <div *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched" class="error-message">
+              First Name is required
+            </div>
+          </div>
+        
+          <div class="flex-col">
+            <input type="text" id="lastName" formControlName="lastName" placeholder="Last Name">
+            <div *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched" class="error-message">
+              Last Name is required
+            </div>
+          </div>
+        </div>
+      
+        <div class="row">
+          <div class="flex-col">
+            <input type="email" id="email" formControlName="email" placeholder="Email">
+            <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error-message">
+              Email is required and must be valid
+            </div>
+          </div>
+        
+          <div class="flex-col">
+            <select id="country" formControlName="country" placeholder="Country">
+              <option *ngFor="let country of (countries$ | async)" [value]="country">{{ country }}</option>
+            </select>
+  
+            <div *ngIf="form.get('country')?.invalid && form.get('country')?.touched" class="error-message">
+              Country is required
+            </div>
+          </div>
+        </div>
+    
+        <div class="row">
+
+          <div class="flex-col">
+            <input type="text" id="address" formControlName="address" placeholder="Address">
+            <div *ngIf="form.get('address')?.invalid && form.get('address')?.touched" class="error-message">
+                Address is required
+              </div>
+          </div>
+
+        </div>
+    
+        <div class="row">
+          <div class="flex-col">
+            <input type="text" id="zipcode" formControlName="zipcode" placeholder="Zipcode">
+            <div *ngIf="form.get('zipcode')?.invalid && form.get('zipcode')?.touched" class="error-message">
+              Zipcode is required
+            </div>
+          </div>
+      
+          <div class="flex-col">
+            <input type="text" id="state" formControlName="state">
+            <div *ngIf="form.get('state')?.invalid && form.get('state')?.touched" class="error-message">
+              State is required
+            </div>
+          </div>
+        </div>
+
+        <div class="row submission">
+            <div class="checkbox">
+                <label for="agreeTerms">I accept the Terms of use of this website</label>
+                <input type="checkbox" id="agreeTerms" formControlName="agreeTerms">
+            </div>
+
+            <app-button
+              type="submit"
+              text="Submit Detail"
+              [isDisabled]="this.form.invalid"></app-button>
+        </div>
+    </form>
+</div>

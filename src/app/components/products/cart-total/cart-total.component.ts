@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CartItem } from 'src/app/interfaces/cart.interfece';
 import { Product } from 'src/app/interfaces/product.interface';
 import { ProductService } from 'src/app/features/services/product.service';
+import { LanguageService } from 'src/app/features/services/language.service';
 
 @Component({
   selector: 'app-cart-total',
@@ -15,8 +16,11 @@ export class CartTotalComponent implements OnInit, OnDestroy {
   public total: number = 0;
   private subsription = new Subscription;
   isProductView = true;
+  private language: any;
 
-  constructor(private productsService: ProductService) { }
+  constructor(private productsService: ProductService, private languageService: LanguageService) {
+    this.language = this.languageService.lannguage$.subscribe(x => x);
+   }
 
   ngOnInit(): void {
     this.subsription = this.productsService.cart$.subscribe((cartValues: CartItem[]) => {
@@ -37,5 +41,8 @@ export class CartTotalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subsription.unsubscribe();
+  }
+  languageChange() {
+    this.languageService.setLanguage(this.language === 'en' ? 'fr' : 'en')
   }
 }

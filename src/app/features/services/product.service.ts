@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Product } from '../../interfaces/product.interface';
 import { CartItem } from '../../interfaces/cart.interfece';
 import { APP_CONFIG_TOKEN, AppConfig } from 'src/config';
+import { LanguageService } from './language.service';
 
 @Injectable()
 export class ProductService {
@@ -25,13 +26,18 @@ export class ProductService {
   private activeTabSubject = new BehaviorSubject<string>('All');
 
   public pages$: Observable<number>;
-  public pagesSubject = new BehaviorSubject(1);
+  private pagesSubject = new BehaviorSubject(1);
 
   public categories$: Observable<string[]>;
-  public categoriesSubject = new BehaviorSubject<string[]>(['All']);
+  private categoriesSubject = new BehaviorSubject<string[]>(['All']);
+
+  public countries$: Observable<any[]>;
+  private countiresSubject = new BehaviorSubject<any[]>([]); 
 
   constructor(private http: HttpClient, 
-    @Inject(APP_CONFIG_TOKEN) private config: AppConfig) {
+    @Inject(APP_CONFIG_TOKEN) private config: AppConfig,
+    private languageService: LanguageService) {
+
     this.cart$ = this.cartSubject.asObservable();
     this.products$ = this.productsSubject.asObservable();
     this.loading$ = this.loadingSubject.asObservable();
@@ -39,20 +45,26 @@ export class ProductService {
     this.activeTab$ = this.activeTabSubject.asObservable();
     this.pages$ = this.pagesSubject.asObservable();
     this.categories$ = this.categoriesSubject.asObservable();
+    this.countries$ = this.countiresSubject.asObservable();
+
   }
 
   getData() {
-    this.http.get<Product[]>(this.config.dataSourceURL).subscribe((products) => {
-      if(products) {
-
-        this.getCategories(products);
-
-        this.loading();        
-        this.allProductsSubject.next(this.divideArray(products));
-
-        this.productsSubject.next(this.allProductsSubject.getValue()[this.currentPageSubject.getValue()])
+    this.languageService.lannguage$.subscribe((language) => {
+      if(language) {
+        this.http.get<Product[]>(this.config.dataSourceURL).subscribe((products) => {
+          if(products) {
+    
+            this.getCategories(products);
+    
+            this.loading();        
+            this.allProductsSubject.next(this.divideArray(products));
+    
+            this.productsSubject.next(this.allProductsSubject.getValue()[this.currentPageSubject.getValue()])
+          }
+        });
       }
-    });
+    })
   }
 
   getCategories(products: Product[]) {
@@ -122,23 +134,6 @@ export class ProductService {
     }
   }
 
-  private filterByCategory() {
-    if(this.activeTabSubject.getValue() === 'All') {
-
-      this.productsSubject.next(this.allProductsSubject.getValue()[this.currentPageSubject.getValue()]);
-
-    } else {
-
-      this.productsSubject.next(
-        this.allProductsSubject.getValue()[this.currentPageSubject.getValue()]
-          .filter((product) => 
-            product.category === this.activeTabSubject.getValue()
-            )
-        )
-
-    }
-  }
-  
   divideArray(products: any[]): any[][] {
     this.pagesSubject.next(products.length / this.config.pageElement);
     let tmp: any[][] = [];
@@ -161,5 +156,36 @@ export class ProductService {
     setTimeout(() => {
       this.loadingSubject.next(false);
     }, 1000)
+  }
+
+  checkout(formValues: any) {}
+
+  fetchCountries() {
+    this.http.get<any[]>(this.config.countriesSourceURL).subscribe((countries) => {
+      if(countries) {
+        this.countiresSubject.next(this.sortAlphabetically(countries.map(x => x.name.common)))
+      }
+    });
+  }
+
+  private sortAlphabetically(array: string[]): string[] {
+    return array.sort((a, b) => a.localeCompare(b));
+  }
+
+  private filterByCategory() {
+    if(this.activeTabSubject.getValue() === 'All') {
+
+      this.productsSubject.next(this.allProductsSubject.getValue()[this.currentPageSubject.getValue()]);
+
+    } else {
+
+      this.productsSubject.next(
+        this.allProductsSubject.getValue()[this.currentPageSubject.getValue()]
+          .filter((product) => 
+            product.category === this.activeTabSubject.getValue()
+            )
+        )
+
+    }
   }
 }

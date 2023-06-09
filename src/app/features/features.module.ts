@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HighlightDirective } from './directives/highlight.directive';
 import { ProductService } from './services/product.service';
+import { LanguageService } from './services/language.service';
 
 
 
@@ -13,7 +14,8 @@ import { ProductService } from './services/product.service';
     CommonModule,
   ],
   providers: [
-    ProductService
+    ProductService,
+    LanguageService
   ],
   exports: [
     HighlightDirective

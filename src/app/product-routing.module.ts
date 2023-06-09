@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsComponent } from './components/products/products.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CheckoutComponent } from './components/products/checkout/checkout.component';
 import { ProductGridComponent } from './components/products/product-grid/product-grid.component';
-import { SuccessComponent } from './components/success/success.component';
+import { SuccessComponent } from './components/products/success/success.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { CheckoutGuardGuard } from './guards/checkout-guard.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +14,8 @@ const routes: Routes = [
     children: [
       {
         path: 'checkout',
-        component: CheckoutComponent
+        component: CheckoutComponent,
+        canActivate: [CheckoutGuardGuard]
       },
       {
         path: '',
@@ -23,7 +26,10 @@ const routes: Routes = [
   {
     path: 'success',
     component: SuccessComponent
-  }
+  }, {
+    path: '**',
+    component: NotFoundComponent,
+    }
 ];
 
 @NgModule({
