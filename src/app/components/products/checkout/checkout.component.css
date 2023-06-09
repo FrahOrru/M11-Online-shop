@@ -59,8 +59,8 @@ input.ng-invalid.ng-touched {
 }
 
 .error-message {
-  font-size: 16px;
-  color: red;
+  font-size: 14px;
+  color: rgb(250, 153, 153);
 }
 
 .flex-col {

@@ -52,10 +52,9 @@ export class ProductService {
   getData() {
     this.languageService.language$.subscribe((language) => {
       if(language) {
-        console.log(language)
         this.http.get<Product[]>(this.config.getDataSourceURL(language)).subscribe((products) => {
           if(products) {
-    
+            this.categoriesSubject.next(['All'])
             this.getCategories(products);
     
             this.loading();        
@@ -136,7 +135,7 @@ export class ProductService {
   }
 
   divideArray(products: any[]): any[][] {
-    this.pagesSubject.next(products.length / this.config.pageElement);
+    this.pagesSubject.next(Math.ceil(products.length / this.config.pageElement));
     let tmp: any[][] = [];
 
     for (let i = 0; i < products.length; i += this.config.pageElement) {

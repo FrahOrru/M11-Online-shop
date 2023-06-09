@@ -10,8 +10,9 @@
     <div>
         <h2>Total: {{ total | currency:'EUR':'symbol' }}</h2>
         <app-button
-        routerLink="checkout"
+        [routerLink]="isProductView ? 'checkout' : '/'"
         [text]="isProductView ? 'Go to checkout' : 'Continue shopping'"
-        [isDisabled]="isProductView && cart.length <= 0"></app-button>
+        [isDisabled]="isProductView && cart.length <= 0"
+        (click)="goToCheckout()"></app-button>
     </div>
 </div>

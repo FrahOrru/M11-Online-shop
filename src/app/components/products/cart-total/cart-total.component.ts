@@ -44,9 +44,12 @@ export class CartTotalComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subsription.unsubscribe();
   }
-  
+
   languageChange() {
-    console.log(this.language)
     this.languageService.setLanguage(this.language === 'en' ? 'fr' : 'en')
+  }
+
+  goToCheckout() {
+    this.isProductView = !this.isProductView;
   }
 }

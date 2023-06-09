@@ -19,5 +19,6 @@ export interface AppConfig {
 }
 
 function getSourceURL(language: 'en' | 'fr'): string {
+    console.log(language === 'en' ? 'https://fakestoreapi.com/products' : './assets/json/products-fr.json')
     return language === 'en' ? 'https://fakestoreapi.com/products' : './assets/json/products-fr.json'
 }
